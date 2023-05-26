@@ -1,24 +1,25 @@
 ﻿using SFML.System;
 using SFML.Graphics;
-using SFML.Window;
-using Agar.io.Engine.Interfaces;
+using Agario.Engine.Interfaces;
 using System.Collections.Generic;
 
-namespace Agar.io.Engine
+namespace Agario.Engine
 {
     class GameLoop
     {
         private bool running = false;
 
-        private const int windiwWidth = 1200;
-        private const int windowHeight = 600;
-
         private RenderWindow scene;
 
         private Clock clock = new Clock();
 
-        public List<IDrawable> drawablesObjects = new();
-        public List<IUpdatable> updatableObjects= new();
+        public static List<IDrawable> drawablesObjects = new();
+        public static List<IUpdatable> updatableObjects= new();
+
+        public GameLoop(RenderWindow _scene)
+        {
+            scene = _scene;
+        }
 
         public void Run()
         {
@@ -34,7 +35,6 @@ namespace Agar.io.Engine
         {
             running = true;
 
-            scene = new RenderWindow(new VideoMode(windiwWidth, windowHeight), "Game window");
             scene.DispatchEvents();
         }
         private void Update()
@@ -61,6 +61,29 @@ namespace Agar.io.Engine
         private void CheckInput()
         {
 
+        }
+
+        public void RegisterGameObject(GameObject gameObject)
+        {
+            if (gameObject is IDrawable)
+            {
+                drawablesObjects.Add((IDrawable)gameObject);
+            }
+            if (gameObject is IUpdatable)
+            {
+                updatableObjects.Add((IUpdatable)gameObject);
+            }
+        }
+        public void UnregisterGameObject(GameObject gameObject)
+        {
+            if (gameObject is IDrawable)
+            {
+                drawablesObjects.Remove((IDrawable)gameObject);
+            }
+            if (gameObject is IUpdatable)
+            {
+                updatableObjects.Remove((IUpdatable)gameObject);
+            }
         }
     }
 }

@@ -1,7 +1,7 @@
 ﻿using SFML.System;
 using SFML.Graphics;
 
-namespace Agar.io.Engine
+namespace Agario.Engine
 {
     public class GameObject
     {

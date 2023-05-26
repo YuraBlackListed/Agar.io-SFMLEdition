@@ -1,6 +1,6 @@
 ﻿using SFML.Window;
 
-namespace Agar.io.Engine
+namespace Agario.Engine
 {
     class InputHandler
     {

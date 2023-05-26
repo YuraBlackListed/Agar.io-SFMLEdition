@@ -1,4 +1,4 @@
-﻿namespace Agar.io.Engine.Interfaces
+﻿namespace Agario.Engine.Interfaces
 {
     public interface IUpdatable
     {
