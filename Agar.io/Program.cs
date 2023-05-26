@@ -6,7 +6,7 @@ namespace Agar.io
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            
         }
     }
 }
