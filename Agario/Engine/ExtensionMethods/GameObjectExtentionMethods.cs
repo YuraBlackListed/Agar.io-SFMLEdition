@@ -1,6 +1,4 @@
-﻿using SFMLGame.Engine;
-
-namespace Agario.Engine.ExtensionMethods.GameObjectExtentionMethods
+﻿namespace Agario.Engine.ExtensionMethods.GameObjectExtentionMethods
 {
     public static class GameObjectExtentionMethods
     {
