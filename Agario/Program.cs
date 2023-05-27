@@ -8,7 +8,7 @@ namespace Agario
     {
         static void Main(string[] args)
         {
-            Game.Game game = new Game.Game(200);
+            Game.Game game = new Game.Game(1000);
             game.Start();
 
 

@@ -64,7 +64,7 @@ namespace Agario.Game
             {
                 if (playersList[playerID].CollidesWith(foodList[foodID]))
                 {
-                    playersList[playerID].Grow(1);
+                    playersList[playerID].Grow(0.5f);
                     foodList[foodID].Destroy();
                 }
             }
