@@ -44,6 +44,7 @@ namespace Agario.GameObjects
         private void MoveToMouse(float time)
         {
             Vector2i mousePosition = input.HandleMousePosition();
+            // yes, input shouldn't be here ^( gotta use CheckInput in GameLoop...
 
             Velocity = new Vector2f(mousePosition.X - Position.X, mousePosition.Y - Position.Y);
 

@@ -51,12 +51,23 @@ namespace Agario.Game
         }
         public void Update(float time)
         {
+            GenerateFood();
             for (int playerID = 0; playerID < playersList.Count; playerID++)
             {
                 CheckForPlayerCollissions(playerID);
                 CheckForFoodCollissions(playerID);
             }
-            
+        }
+        private void GenerateFood()
+        {
+            if(foodList.Count < foodVolume)
+            {
+                Food food = new Food(RandomPosition(), scene);
+
+                foodList.Add(food);
+
+                gameLoop.RegisterGameObject(food);
+            }
         }
         private void CheckForFoodCollissions(int playerID)
         {

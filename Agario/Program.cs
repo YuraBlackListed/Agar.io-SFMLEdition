@@ -10,8 +10,6 @@ namespace Agario
         {
             Game.Game game = new Game.Game(1000);
             game.Start();
-
-
         }
     }
 }
