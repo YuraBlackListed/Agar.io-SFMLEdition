@@ -40,7 +40,7 @@ namespace Agario.Game
                 gameLoop.RegisterGameObject(food);
             }
 
-            player = new Player(1, scene);
+            player = new Player(100, scene);
             gameLoop.RegisterGameObject(player);
 
             gameLoop.Run();
