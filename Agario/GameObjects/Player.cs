@@ -8,6 +8,8 @@ namespace Agario.GameObjects
 {
     class Player : GameObject, IUpdatable, IDrawable
     {
+        private float size = 60;
+
         private CircleShape shape;
 
         private float speed;
@@ -23,7 +25,7 @@ namespace Agario.GameObjects
             Color randomColor = new Color((byte)random.Next(0, 255), (byte)random.Next(0, 255), (byte)random.Next(0, 255));
 
             shape = new CircleShape();
-            shape.Radius = random.Next(30, 50);
+            shape.Radius = size / 2;
             shape.Position = Position;
             shape.Origin = new Vector2f(shape.Radius, shape.Radius);
             shape.FillColor = randomColor;
@@ -55,6 +57,17 @@ namespace Agario.GameObjects
                 playerSpeed = Math.Min(playerSpeed, speed);
                 Position += Velocity * playerSpeed * time;
             }
+        }
+        public void Grow(float strength)
+        {
+            size += strength;
+            shape.Radius = size / 2;
+            Mesh = shape;
+        }
+        public new void Destroy()
+        {
+            base.Destroy();
+            Game.Game.playersList.Remove(this);
         }
         public void Draw()
         {

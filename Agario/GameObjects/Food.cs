@@ -27,7 +27,12 @@ namespace Agario.GameObjects
 
 			Mesh = shape;
 		}
+		public new void Destroy()
+        {
+			base.Destroy();
+			Game.Game.foodList.Remove(this);
 
+		}
 		public void Draw()
 		{
 			scene.Draw(Mesh);

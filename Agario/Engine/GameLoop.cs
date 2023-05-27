@@ -16,8 +16,11 @@ namespace Agario.Engine
         public static List<IDrawable> drawablesObjects = new();
         public static List<IUpdatable> updatableObjects= new();
 
-        public GameLoop(RenderWindow _scene)
+        private IUpdatable game;
+
+        public GameLoop(RenderWindow _scene, IUpdatable _game)
         {
+            game = _game;
             scene = _scene;
         }
 
@@ -46,6 +49,8 @@ namespace Agario.Engine
             {
                 updatable.Update(seconds);
             }
+
+            game.Update(seconds);
         }
         private void Render()
         {
