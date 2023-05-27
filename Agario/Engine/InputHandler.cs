@@ -1,32 +1,21 @@
-﻿using SFML.Window;
+﻿using SFML.Graphics;
+using SFML.System;
+using SFML.Window;
 
 namespace Agario.Engine
 {
     class InputHandler
     {
-        private Keyboard.Key upKey;
-        private Keyboard.Key downKey;
+        RenderWindow scene;
 
-        public InputHandler(Keyboard.Key _upKey, Keyboard.Key _downKey)
+        public InputHandler(RenderWindow _scene)
         {
-            upKey = _upKey;
-            downKey = _downKey;
+            scene = _scene;
         }
-
-        public float HandleInput()
+        public Vector2i HandleMousePosition() 
         {
-            if (Keyboard.IsKeyPressed(upKey))
-            {
-                return -300f;
-            }
-            else if (Keyboard.IsKeyPressed(downKey))
-            {
-                return 300f;
-            }
-            else
-            {
-                return 0f;
-            }
+            Vector2i mousePosition = Mouse.GetPosition(scene);
+            return mousePosition;
         }
     }
 }
