@@ -19,13 +19,15 @@ namespace Agario.Game
 
         private Vector2u mapSize = new Vector2u(800, 800);
 
+        private Player player;
+
         public Game(int _foodVolume)
         {
             foodVolume = _foodVolume;
         }
-        public void Run()
+        public void Start()
         {
-            scene = new RenderWindow(new VideoMode(800, 800), "Game window");
+            scene = new RenderWindow(new VideoMode(mapSize.X, mapSize.Y), "Game window");
 
             gameLoop = new Engine.GameLoop(scene);
 
@@ -37,9 +39,13 @@ namespace Agario.Game
 
                 gameLoop.RegisterGameObject(food);
             }
-            
+
+            player = new Player(1, scene);
+            gameLoop.RegisterGameObject(player);
+
             gameLoop.Run();
         }
+
         public Vector2f RandomPosition()
         {
             Random random = new();

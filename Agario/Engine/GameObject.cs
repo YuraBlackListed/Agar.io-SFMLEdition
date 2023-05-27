@@ -16,16 +16,11 @@ namespace Agario.Engine
 
         public Shape Mesh;
 
-        private RenderWindow scene;
+        internal RenderWindow scene;
 
         public GameObject(RenderWindow window)
         {
             scene = window;
-        }
-
-        public void Draw()
-        {
-            scene.Draw(Mesh);
         }
     }
 

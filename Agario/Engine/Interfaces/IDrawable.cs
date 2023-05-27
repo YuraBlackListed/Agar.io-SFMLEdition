@@ -4,6 +4,6 @@ namespace Agario.Engine.Interfaces
 {
 	public interface IDrawable
 	{
-		public void Draw(RenderWindow scene);
+		public void Draw();
 	}
 }

@@ -8,11 +8,11 @@ namespace Agario.GameObjects
 {
     class Food : GameObject, IDrawable
     {
-		public CircleShape shape;
+		private CircleShape shape;
 
 		private float radius;
 
-		public Food(Vector2f position, RenderWindow window) : base(window)
+		public Food(Vector2f position, RenderWindow scene) : base(scene)
 		{
 			Random random = new();
 
@@ -24,11 +24,13 @@ namespace Agario.GameObjects
 			shape.Position = position;
 			shape.Origin = new Vector2f(radius, radius);
 			shape.FillColor = randomColor;
+
+			Mesh = shape;
 		}
 
-		public void Draw(RenderWindow scene)
+		public void Draw()
 		{
-			scene.Draw(shape);
+			scene.Draw(Mesh);
 		}
 
 	}

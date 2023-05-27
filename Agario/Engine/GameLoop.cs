@@ -53,7 +53,7 @@ namespace Agario.Engine
 
             foreach (IDrawable drawable in drawablesObjects)
             {
-                drawable.Draw(scene);
+                drawable.Draw();
             }
 
             scene.Display();
