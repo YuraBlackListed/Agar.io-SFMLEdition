@@ -51,6 +51,8 @@ namespace Agario.Engine
             }
 
             game.Update(seconds);
+
+            scene.DispatchEvents();
         }
         private void Render()
         {
