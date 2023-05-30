@@ -1,6 +1,4 @@
-﻿using SFML.Graphics;
-
-namespace Agario.Engine.Interfaces
+﻿namespace Agario.Engine.Interfaces
 {
 	public interface IDrawable
 	{

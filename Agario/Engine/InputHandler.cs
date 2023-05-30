@@ -6,16 +6,27 @@ namespace Agario.Engine
 {
     class InputHandler
     {
-        RenderWindow scene;
+        private RenderWindow scene;
 
         public InputHandler(RenderWindow _scene)
         {
             scene = _scene;
         }
-        public Vector2i HandleMousePosition() 
+
+        public bool KeyPressed(Keyboard.Key key)
         {
-            Vector2i mousePosition = Mouse.GetPosition(scene);
+            if (Keyboard.IsKeyPressed(key))
+            {
+                return true;
+            }
+            return false;
+        }
+
+        public Vector2f HandleMousePosition()
+        {
+            Vector2f mousePosition = (Vector2f)Mouse.GetPosition(scene);
             return mousePosition;
         }
     }
+
 }

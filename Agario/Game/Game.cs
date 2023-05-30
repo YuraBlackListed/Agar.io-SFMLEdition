@@ -2,6 +2,7 @@
 using SFML.System;
 using SFML.Window;
 using Agario.GameObjects;
+using Agario.Engine;
 using Agario.Engine.Interfaces;
 using Agario.Engine.ExtensionMethods.GameObjectExtentionMethods;
 using System.Collections.Generic;
@@ -22,7 +23,9 @@ namespace Agario.Game
 
         private Vector2u mapSize = new Vector2u(800, 800);
 
-        private Player player;
+        private Player acivePlayer;
+
+        private InputHandler input;
 
         public Game(int _foodVolume)
         {
@@ -39,13 +42,19 @@ namespace Agario.Game
                 Food food = new Food(RandomPosition(), scene);
 
                 foodList.Add(food);
-
-                gameLoop.RegisterGameObject(food);
             }
 
-            player = new Player(100, scene);
-            playersList.Add(player);
-            gameLoop.RegisterGameObject(player);
+            acivePlayer = new Player(100, scene, false);
+            playersList.Add(acivePlayer);
+
+            for (int i = 0; i < 6; i++)
+            {
+                Player _player = new Player(100, scene, true);
+
+                playersList.Add(_player);
+            }
+
+            input = new InputHandler(scene);
 
             gameLoop.Run();
         }
@@ -57,6 +66,17 @@ namespace Agario.Game
                 CheckForPlayerCollissions(playerID);
                 CheckForFoodCollissions(playerID);
             }
+
+            if(input.KeyPressed(Keyboard.Key.F))
+            {
+                Random random = new();
+
+                acivePlayer.IsAI = true;
+
+                Player randomPlayer = playersList[random.Next(0, playersList.Count - 1)];
+                randomPlayer.IsAI = false;
+                acivePlayer = randomPlayer;
+            }
         }
         private void GenerateFood()
         {
@@ -65,8 +85,6 @@ namespace Agario.Game
                 Food food = new Food(RandomPosition(), scene);
 
                 foodList.Add(food);
-
-                gameLoop.RegisterGameObject(food);
             }
         }
         private void CheckForFoodCollissions(int playerID)

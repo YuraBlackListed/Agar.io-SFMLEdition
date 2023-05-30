@@ -1,7 +1,6 @@
 ﻿using SFML.System;
 using SFML.Graphics;
 using Agario.Engine.Interfaces;
-using Agario.Engine;
 
 namespace Agario.Engine
 {
@@ -23,10 +22,30 @@ namespace Agario.Engine
         public GameObject(RenderWindow window)
         {
             scene = window;
+
+            if (this is IInput inputable)
+            {
+                GameLoop.inputableObjects.Add(inputable);
+            }
+
+            if (this is IUpdatable updatable)
+            {
+                GameLoop.updatableObjects.Add(updatable);
+            }
+
+            if (this is IDrawable drawable)
+            {
+                GameLoop.drawableObjects.Add(drawable);
+            }
         }
 
         internal void Destroy()
         {
+            if (this is IInput inputable)
+            {
+                GameLoop.inputableObjects.Remove(inputable);
+            }
+
             if (this is IUpdatable updatable)
             {
                 GameLoop.updatableObjects.Remove(updatable);
@@ -34,7 +53,7 @@ namespace Agario.Engine
 
             if (this is IDrawable drawable)
             {
-                GameLoop.drawablesObjects.Remove(drawable);
+                GameLoop.drawableObjects.Remove(drawable);
             }
         }
 

@@ -6,9 +6,9 @@ using Agario.Engine.Interfaces;
 
 namespace Agario.GameObjects
 {
-    class Player : GameObject, IUpdatable, IDrawable
+    class Player : GameObject, IInput, IUpdatable, IDrawable
     {
-        private float size = 60;
+        private float size = 30;
 
         private CircleShape shape;
 
@@ -16,8 +16,13 @@ namespace Agario.GameObjects
 
         private InputHandler input;
 
-        public Player(float _speed, RenderWindow scene) : base(scene)
+        public bool IsAI;
+
+        private Vector2f target;
+
+        public Player(float _speed, RenderWindow scene, bool _IsAI) : base(scene)
         {
+            IsAI = _IsAI;
             speed = _speed;
 
             Random random = new();
@@ -34,19 +39,36 @@ namespace Agario.GameObjects
 
             Position = new Vector2f(0, 0);
 
+            target = Position;
+
             input = new InputHandler(scene);
+        }
+        public void GetInput()
+        {
+            if (!IsAI)
+            {
+                target = input.HandleMousePosition();
+            }
         }
         public void Update(float time)
         {
-            MoveToMouse(time);
+            Move(time);
+        }
+        private void Move(float time)
+        {
+            if (IsAI)
+            {
+                MoveToRandomPoint(time);
 
+            }
+            else
+            {
+                MoveToMouse(time);
+            }
         }
         private void MoveToMouse(float time)
         {
-            Vector2i mousePosition = input.HandleMousePosition();
-            // yes, input shouldn't be here ^( gotta use CheckInput in GameLoop...
-
-            Velocity = new Vector2f(mousePosition.X - Position.X, mousePosition.Y - Position.Y);
+            Velocity = new Vector2f(target.X - Position.X, target.Y - Position.Y);
 
             float distance = (float)Math.Sqrt(Velocity.X * Velocity.X + Velocity.Y * Velocity.Y);
 
@@ -56,6 +78,28 @@ namespace Agario.GameObjects
                 float playerSpeed = speed * (distance / 100);
 
                 playerSpeed = Math.Min(playerSpeed, speed);
+                Position += Velocity * playerSpeed * time;
+            }
+        }
+        private void MoveToRandomPoint(float time)
+        {
+
+            if (target == Position)
+            {
+                target = RandomPosition();
+            }
+
+            Velocity = new Vector2f(target.X - Position.X, target.Y - Position.Y);
+
+            float distance = (float)Math.Sqrt(Velocity.X * Velocity.X + Velocity.Y * Velocity.Y);
+
+            if (distance > 0)
+            {
+                Velocity /= distance;
+                float playerSpeed = speed * (distance / 100);
+
+                playerSpeed = Math.Min(playerSpeed, speed);
+                playerSpeed = Math.Max(playerSpeed, 10f);
                 Position += Velocity * playerSpeed * time;
             }
         }
@@ -73,6 +117,13 @@ namespace Agario.GameObjects
         public void Draw()
         {
             scene.Draw(Mesh);
+        }
+
+        public Vector2f RandomPosition()
+        {
+            Random random = new();
+
+            return new Vector2f(random.Next(0, 800), random.Next(0, 800));
         }
     }
 }

@@ -13,8 +13,9 @@ namespace Agario.Engine
 
         private Clock clock = new Clock();
 
-        public static List<IDrawable> drawablesObjects = new();
+        public static List<IInput> inputableObjects= new();
         public static List<IUpdatable> updatableObjects= new();
+        public static List<IDrawable> drawableObjects = new();
 
         private IUpdatable game;
 
@@ -58,7 +59,7 @@ namespace Agario.Engine
         {
             scene.Clear(Color.Black);
 
-            foreach (IDrawable drawable in drawablesObjects)
+            foreach (IDrawable drawable in drawableObjects)
             {
                 drawable.Draw();
             }
@@ -67,29 +68,9 @@ namespace Agario.Engine
         }
         private void CheckInput()
         {
-
-        }
-
-        public void RegisterGameObject(GameObject gameObject)
-        {
-            if (gameObject is IDrawable)
+            foreach (IInput inputable in inputableObjects)
             {
-                drawablesObjects.Add((IDrawable)gameObject);
-            }
-            if (gameObject is IUpdatable)
-            {
-                updatableObjects.Add((IUpdatable)gameObject);
-            }
-        }
-        public void UnregisterGameObject(GameObject gameObject)
-        {
-            if (gameObject is IDrawable)
-            {
-                drawablesObjects.Remove((IDrawable)gameObject);
-            }
-            if (gameObject is IUpdatable)
-            {
-                updatableObjects.Remove((IUpdatable)gameObject);
+                inputable.GetInput();
             }
         }
     }
