@@ -112,7 +112,7 @@ namespace Agario.GameObjects
         public new void Destroy()
         {
             base.Destroy();
-            Game.Game.playersList.Remove(this);
+            Game.Agario.playersList.Remove(this);
         }
         public void Draw()
         {

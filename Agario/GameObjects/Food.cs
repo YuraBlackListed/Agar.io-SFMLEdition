@@ -37,7 +37,7 @@ namespace Agario.GameObjects
 		public new void Destroy()
         {
 			base.Destroy();
-			Game.Game.foodList.Remove(this);
+			Game.Agario.foodList.Remove(this);
 
 		}
 		public void Draw()

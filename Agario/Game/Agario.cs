@@ -1,5 +1,4 @@
 ﻿using SFML.Graphics;
-using SFML.System;
 using SFML.Window;
 using Agario.GameObjects;
 using Agario.Engine;
@@ -10,33 +9,27 @@ using System;
 
 namespace Agario.Game
 {
-    class Game : IUpdatable
+    class Agario : IUpdatable
     {
-        private RenderWindow scene;
-
-        private Engine.GameLoop gameLoop;
+        public RenderWindow scene;
 
         private int foodVolume;
 
         public static List<Food> foodList = new();
         public static List<Player> playersList = new();
 
-        private Vector2u mapSize = new Vector2u(800, 800);
-
         private Player acivePlayer;
 
         private InputHandler input;
 
-        public Game(int _foodVolume)
+        public Agario(int _foodVolume, RenderWindow _scene)
         {
+            scene = _scene;
             foodVolume = _foodVolume;
             Start();
         }
         private void Start()
         {
-            scene = new RenderWindow(new VideoMode(mapSize.X, mapSize.Y), "Game window");
-
-            gameLoop = new Engine.GameLoop(scene, this);
 
             for (int i = 0; i < foodVolume; i++)
             {
@@ -56,8 +49,6 @@ namespace Agario.Game
             }
 
             input = new InputHandler(scene);
-
-            gameLoop.Run();
         }
         public void Update(float time)
         {

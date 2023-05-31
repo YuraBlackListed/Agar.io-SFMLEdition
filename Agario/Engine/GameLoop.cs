@@ -1,5 +1,6 @@
 ﻿using SFML.System;
 using SFML.Graphics;
+using SFML.Window;
 using Agario.Engine.Interfaces;
 using System.Collections.Generic;
 
@@ -7,7 +8,8 @@ namespace Agario.Engine
 {
     class GameLoop
     {
-        private bool running = false;
+        private int foodVolume;
+        public bool running = false;
 
         private RenderWindow scene;
 
@@ -17,12 +19,19 @@ namespace Agario.Engine
         public static List<IUpdatable> updatableObjects= new();
         public static List<IDrawable> drawableObjects = new();
 
-        private IUpdatable game;
+        private Vector2u mapSize;
 
-        public GameLoop(RenderWindow _scene, IUpdatable _game)
+        private Game.Agario game;
+
+        public GameLoop()
         {
-            game = _game;
-            scene = _scene;
+            foodVolume = 200;
+
+            mapSize = new Vector2u(800, 800);
+
+            scene = new RenderWindow(new VideoMode(mapSize.X, mapSize.Y), "Game window");
+
+            game = new Game.Agario(foodVolume, scene);
         }
 
         public void Run()
