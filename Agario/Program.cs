@@ -5,7 +5,6 @@
         static void Main(string[] args)
         {
             Game.Game game = new Game.Game(100);
-            game.Start();
         }
     }
 }

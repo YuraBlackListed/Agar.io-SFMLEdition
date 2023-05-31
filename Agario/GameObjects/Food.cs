@@ -12,12 +12,19 @@ namespace Agario.GameObjects
 
 		private float radius;
 
-		public Food(Vector2f position, RenderWindow scene) : base(scene)
+		public Food(RenderWindow scene) : base(scene)
 		{
-			Random random = new();
+			Initialize(RandomPosition());
+		}
+		public Food(RenderWindow scene, Vector2f position) : base(scene)
+		{
+			Initialize(position);
+		}
 
+		private void Initialize(Vector2f position)
+		{
+			Random random = new Random();
 			Color randomColor = new Color((byte)random.Next(0, 255), (byte)random.Next(0, 255), (byte)random.Next(0, 255));
-
 			radius = random.Next(3, 5);
 
 			shape = new CircleShape(radius);

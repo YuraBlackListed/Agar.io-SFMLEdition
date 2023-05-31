@@ -30,8 +30,9 @@ namespace Agario.Game
         public Game(int _foodVolume)
         {
             foodVolume = _foodVolume;
+            Start();
         }
-        public void Start()
+        private void Start()
         {
             scene = new RenderWindow(new VideoMode(mapSize.X, mapSize.Y), "Game window");
 
@@ -39,7 +40,7 @@ namespace Agario.Game
 
             for (int i = 0; i < foodVolume; i++)
             {
-                Food food = new Food(RandomPosition(), scene);
+                Food food = new Food(scene);
 
                 foodList.Add(food);
             }
@@ -82,7 +83,7 @@ namespace Agario.Game
         {
             if(foodList.Count < foodVolume)
             {
-                Food food = new Food(RandomPosition(), scene);
+                Food food = new Food(scene);
 
                 foodList.Add(food);
             }
@@ -102,11 +103,6 @@ namespace Agario.Game
         {
 
         }
-        public Vector2f RandomPosition()
-        {
-            Random random = new();
-
-            return new Vector2f(random.Next(0, (int)mapSize.X), random.Next(0, (int)mapSize.Y));
-        }
+        
     }
 }

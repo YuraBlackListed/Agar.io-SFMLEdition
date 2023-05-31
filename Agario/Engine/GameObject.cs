@@ -1,6 +1,7 @@
 ﻿using SFML.System;
 using SFML.Graphics;
 using Agario.Engine.Interfaces;
+using System;
 
 namespace Agario.Engine
 {
@@ -56,7 +57,12 @@ namespace Agario.Engine
                 GameLoop.drawableObjects.Remove(drawable);
             }
         }
+        public Vector2f RandomPosition()
+        {
+            Random random = new();
 
+            return new Vector2f(random.Next(0, (int)scene.Size.X), random.Next(0, (int)scene.Size.Y));
+        }
     }
 
 }
