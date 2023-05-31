@@ -21,11 +21,14 @@ namespace Agario.Game
         private Player acivePlayer;
 
         private InputHandler input;
+        Random random;
 
         public Agario(int _foodVolume, RenderWindow _scene)
         {
             scene = _scene;
             foodVolume = _foodVolume;
+
+            random = new();
             Start();
         }
         private void Start()
@@ -60,13 +63,16 @@ namespace Agario.Game
 
             if(input.KeyPressed(Keyboard.Key.F))
             {
-                Random random = new();
-
                 acivePlayer.IsAI = true;
 
                 Player randomPlayer = playersList[random.Next(0, playersList.Count - 1)];
                 randomPlayer.IsAI = false;
+
                 acivePlayer = randomPlayer;
+            }
+            if(input.KeyPressed(Keyboard.Key.G))
+            {
+                acivePlayer.Grow(0.3f);
             }
         }
         private void GenerateFood()
@@ -82,17 +88,44 @@ namespace Agario.Game
         {
             for (int foodID = 0; foodID < foodList.Count; foodID++)
             {
-                if (playersList[playerID].CollidesWith(foodList[foodID]))
+                if(playersList.Count > playerID )
                 {
-                    playersList[playerID].Grow(0.5f);
-                    foodList[foodID].Destroy();
+                    if (playersList[playerID].CollidesWith(foodList[foodID]))
+                    {
+                        playersList[playerID].Grow(0.5f);
+                        foodList[foodID].Destroy();
+                    }
                 }
             }
         }
         private void CheckForPlayerCollissions(int playerID)
         {
-
+            for (int player2ID = 0; player2ID < playersList.Count; player2ID++)
+            {
+                if (playersList[playerID].CollidesWith(playersList[player2ID]) && playerID != player2ID)
+                {
+                    if (playersList[playerID].size > playersList[player2ID].size)
+                    {
+                        playersList[playerID].Grow(playersList[player2ID].size);
+                        playersList[player2ID].Destroy();
+                    }
+                    else if(playersList[playerID].size == playersList[player2ID].size)
+                    {
+                        int randomPlayerID = random.Next(1, 2);
+                        switch (randomPlayerID)
+                        {
+                            case 1:
+                                playersList[playerID].Grow(playersList[player2ID].size);
+                                playersList[player2ID].Destroy();
+                                break;
+                            case 2:
+                                playersList[player2ID].Grow(playersList[playerID].size);
+                                playersList[playerID].Destroy();
+                                break;
+                        }
+                    }
+                }
+            }
         }
-        
     }
 }

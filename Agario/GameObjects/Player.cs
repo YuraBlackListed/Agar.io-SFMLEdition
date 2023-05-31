@@ -8,7 +8,7 @@ namespace Agario.GameObjects
 {
     class Player : GameObject, IInput, IUpdatable, IDrawable
     {
-        private float size = 30;
+        public float size = 30;
 
         private CircleShape shape;
 
