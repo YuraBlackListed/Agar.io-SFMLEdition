@@ -22,6 +22,14 @@ namespace Agario.GameObjects
 
         public Player(float _speed, RenderWindow scene, bool _IsAI) : base(scene)
         {
+            Initialize(_speed, scene, _IsAI, RandomPosition());
+        }
+        public Player(float _speed, RenderWindow scene, bool _IsAI, Vector2f position) : base(scene)
+        {
+            Initialize(_speed, scene, _IsAI, position);
+        }
+        private void Initialize(float _speed, RenderWindow scene, bool _IsAI, Vector2f position)
+        {
             IsAI = _IsAI;
             speed = _speed;
 
@@ -37,11 +45,11 @@ namespace Agario.GameObjects
 
             Mesh = shape;
 
-            Position = new Vector2f(0, 0);
+            input = new InputHandler(scene);
+
+            Position = position;
 
             target = Position;
-
-            input = new InputHandler(scene);
         }
         public void GetInput()
         {
@@ -117,13 +125,6 @@ namespace Agario.GameObjects
         public void Draw()
         {
             scene.Draw(Mesh);
-        }
-
-        public Vector2f RandomPosition()
-        {
-            Random random = new();
-
-            return new Vector2f(random.Next(0, 800), random.Next(0, 800));
         }
     }
 }

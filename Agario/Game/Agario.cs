@@ -30,7 +30,6 @@ namespace Agario.Game
         }
         private void Start()
         {
-
             for (int i = 0; i < foodVolume; i++)
             {
                 Food food = new Food(scene);

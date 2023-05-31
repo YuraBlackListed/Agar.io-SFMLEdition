@@ -9,6 +9,7 @@ namespace Agario.Engine
     class GameLoop
     {
         private int foodVolume;
+
         public bool running = false;
 
         private RenderWindow scene;
