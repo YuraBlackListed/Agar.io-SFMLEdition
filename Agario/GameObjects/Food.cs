@@ -33,6 +33,8 @@ namespace Agario.GameObjects
 			shape.FillColor = randomColor;
 
 			Mesh = shape;
+
+			Position = position;
 		}
 		public new void Destroy()
         {

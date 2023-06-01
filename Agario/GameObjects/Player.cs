@@ -114,7 +114,10 @@ namespace Agario.GameObjects
         public void Grow(float strength)
         {
             size += strength;
+
             shape.Radius = size / 2;
+            shape.Origin = new Vector2f(shape.Radius, shape.Radius);
+
             Mesh = shape;
         }
         public new void Destroy()

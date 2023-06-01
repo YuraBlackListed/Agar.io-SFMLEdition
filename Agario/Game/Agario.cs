@@ -1,5 +1,6 @@
 ﻿using SFML.Graphics;
 using SFML.Window;
+using SFML.System;
 using Agario.GameObjects;
 using Agario.Engine;
 using Agario.Engine.Interfaces;
@@ -33,12 +34,6 @@ namespace Agario.Game
         }
         private void Start()
         {
-            for (int i = 0; i < foodVolume; i++)
-            {
-                Food food = new Food(scene);
-
-                foodList.Add(food);
-            }
 
             acivePlayer = new Player(100, scene, false);
             playersList.Add(acivePlayer);
@@ -60,8 +55,8 @@ namespace Agario.Game
                 CheckForPlayerCollissions(playerID);
                 CheckForFoodCollissions(playerID);
             }
-
-            if(input.KeyPressed(Keyboard.Key.F))
+            CheckForFoodCollissions(0);
+            if (input.KeyPressed(Keyboard.Key.F))
             {
                 SwapPlayerControll();
             }
