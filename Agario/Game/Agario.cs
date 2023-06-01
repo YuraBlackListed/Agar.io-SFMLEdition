@@ -63,12 +63,7 @@ namespace Agario.Game
 
             if(input.KeyPressed(Keyboard.Key.F))
             {
-                acivePlayer.IsAI = true;
-
-                Player randomPlayer = playersList[random.Next(0, playersList.Count - 1)];
-                randomPlayer.IsAI = false;
-
-                acivePlayer = randomPlayer;
+                SwapPlayerControll();
             }
             if(input.KeyPressed(Keyboard.Key.G))
             {
@@ -126,6 +121,15 @@ namespace Agario.Game
                     }
                 }
             }
+        }
+        private void SwapPlayerControll()
+        {
+            acivePlayer.IsAI = true;
+
+            Player randomPlayer = playersList[random.Next(0, playersList.Count - 1)];
+            randomPlayer.IsAI = false;
+
+            acivePlayer = randomPlayer;
         }
     }
 }
