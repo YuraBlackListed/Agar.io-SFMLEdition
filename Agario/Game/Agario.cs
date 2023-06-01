@@ -97,27 +97,13 @@ namespace Agario.Game
         {
             for (int player2ID = 0; player2ID < playersList.Count; player2ID++)
             {
-                if (playersList[playerID].CollidesWith(playersList[player2ID]) && playerID != player2ID)
+                if(playerID != player2ID)
                 {
-                    if (playersList[playerID].size > playersList[player2ID].size)
+                    Player atacker = playersList[playerID];
+                    Player defender = playersList[player2ID];
+                    if (atacker.CollidesWith(defender))
                     {
-                        playersList[playerID].Grow(playersList[player2ID].size);
-                        playersList[player2ID].Destroy();
-                    }
-                    else if(playersList[playerID].size == playersList[player2ID].size)
-                    {
-                        int randomPlayerID = random.Next(1, 2);
-                        switch (randomPlayerID)
-                        {
-                            case 1:
-                                playersList[playerID].Grow(playersList[player2ID].size);
-                                playersList[player2ID].Destroy();
-                                break;
-                            case 2:
-                                playersList[player2ID].Grow(playersList[playerID].size);
-                                playersList[playerID].Destroy();
-                                break;
-                        }
+                        atacker.HandleCollision(defender);
                     }
                 }
             }

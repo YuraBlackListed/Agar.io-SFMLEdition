@@ -19,6 +19,7 @@ namespace Agario.GameObjects
         public bool IsAI;
 
         private Vector2f target;
+        Random random;
 
         public Player(float _speed, RenderWindow scene, bool _IsAI) : base(scene)
         {
@@ -33,7 +34,7 @@ namespace Agario.GameObjects
             IsAI = _IsAI;
             speed = _speed;
 
-            Random random = new();
+            random = new();
 
             Color randomColor = new Color((byte)random.Next(0, 255), (byte)random.Next(0, 255), (byte)random.Next(0, 255));
 
@@ -91,7 +92,6 @@ namespace Agario.GameObjects
         }
         private void MoveToRandomPoint(float time)
         {
-
             if (target == Position)
             {
                 target = RandomPosition();
@@ -125,6 +125,29 @@ namespace Agario.GameObjects
         public void Draw()
         {
             scene.Draw(Mesh);
+        }
+        public void HandleCollision(Player defender)
+        {
+            if (size > defender.size)
+            {
+                Grow(defender.size);
+                defender.Destroy();
+            }
+            else if (size == defender.size)
+            {
+                int randomPlayerID = random.Next(1, 3);
+                switch (randomPlayerID)
+                {
+                    case 1:
+                        Grow(defender.size);
+                        defender.Destroy();
+                        break;
+                    case 2:
+                        defender.Grow(size);
+                        Destroy();
+                        break;
+                }
+            }
         }
     }
 }
