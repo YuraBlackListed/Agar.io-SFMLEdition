@@ -45,12 +45,9 @@ namespace Agario.Game
         public void Update(float time)
         {
             GenerateFood();
-            for (int playerID = 0; playerID < playersList.Count; playerID++)
-            {
-                CheckForPlayerCollissions(playerID);
-                CheckForFoodCollissions(playerID);
-            }
-            CheckForFoodCollissions(0);
+            CheckForPlayerCollissions();
+            CheckForFoodCollissions();
+            CheckForFoodCollissions();
         }
         private void GenerateFood()
         {
@@ -61,31 +58,39 @@ namespace Agario.Game
                 foodList.Add(food);
             }
         }
-        private void CheckForFoodCollissions(int playerID)
+        private void CheckForFoodCollissions()
         {
-            for (int foodID = 0; foodID < foodList.Count; foodID++)
+            for (int playerID = 0; playerID < playersList.Count; playerID++)
             {
-                if(playersList.Count > playerID )
+                GameObjects.Player atacker = playersList[playerID];
+                for (int foodID = 0; foodID < foodList.Count; foodID++)
                 {
-                    if (playersList[playerID].CollidesWith(foodList[foodID]))
+                    if (playersList.Count > playerID)
                     {
-                        playersList[playerID].Grow(0.5f);
-                        foodList[foodID].Destroy();
+                        if (atacker.CollidesWith(foodList[foodID]))
+                        {
+                            atacker.Grow(0.5f);
+                            foodList[foodID].Destroy();
+                        }
                     }
                 }
             }
+            
         }
-        private void CheckForPlayerCollissions(int playerID)
+        private void CheckForPlayerCollissions()
         {
-            for (int player2ID = 0; player2ID < playersList.Count; player2ID++)
+            for (int playerID = 0; playerID < playersList.Count; playerID++)
             {
-                if(playerID != player2ID)
+                for (int player2ID = 0; player2ID < playersList.Count; player2ID++)
                 {
-                    GameObjects.Player atacker = playersList[playerID];
-                    GameObjects.Player defender = playersList[player2ID];
-                    if (atacker.CollidesWith(defender))
+                    if (playerID != player2ID)
                     {
-                        atacker.HandleCollision(defender);
+                        GameObjects.Player atacker = playersList[playerID];
+                        GameObjects.Player defender = playersList[player2ID];
+                        if (atacker.CollidesWith(defender))
+                        {
+                            atacker.HandleCollision(defender);
+                        }
                     }
                 }
             }
