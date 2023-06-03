@@ -49,26 +49,28 @@ namespace Agario.Game.GameObjects
 
             target = Position;
 
-            InputHandler.MovePlayer += MoveToMouse;
+            InputHandler.MovePlayer += Move;
         }
         public void Update(float _time)
         {
             time = _time;
-            Move();
         }
-        private void Move()
+        private void Move(Vector2f lastMousePos)
         {
             if (IsAI)
             {
                 MoveToRandomPoint();
             }
+            else
+            {
+                MoveToMouse(lastMousePos);
+            }
         }
         private void MoveToMouse(Vector2f lastMousePos)
         {
-            if (!IsAI)
-            {
-                target = lastMousePos;
-            }
+
+            target = lastMousePos;
+
 
             Velocity = new Vector2f(target.X - Position.X, target.Y - Position.Y);
 
@@ -80,6 +82,7 @@ namespace Agario.Game.GameObjects
                 float playerSpeed = speed * (distance / 100);
 
                 playerSpeed = Math.Min(playerSpeed, speed);
+                playerSpeed = Math.Max(playerSpeed, 10f);
                 Position += Velocity * playerSpeed * time;
             }
         }

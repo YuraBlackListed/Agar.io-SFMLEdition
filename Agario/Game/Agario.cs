@@ -75,7 +75,6 @@ namespace Agario.Game
                     }
                 }
             }
-            
         }
         private void CheckForPlayerCollissions()
         {
