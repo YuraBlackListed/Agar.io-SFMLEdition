@@ -24,11 +24,6 @@ namespace Agario.Engine
         {
             scene = window;
 
-            if (this is IInput inputable)
-            {
-                GameLoop.inputableObjects.Add(inputable);
-            }
-
             if (this is IUpdatable updatable)
             {
                 GameLoop.updatableObjects.Add(updatable);
@@ -42,11 +37,6 @@ namespace Agario.Engine
 
         internal void Destroy()
         {
-            if (this is IInput inputable)
-            {
-                GameLoop.inputableObjects.Remove(inputable);
-            }
-
             if (this is IUpdatable updatable)
             {
                 GameLoop.updatableObjects.Remove(updatable);

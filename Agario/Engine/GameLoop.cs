@@ -16,13 +16,14 @@ namespace Agario.Engine
 
         private Clock clock = new Clock();
 
-        public static List<IInput> inputableObjects= new();
         public static List<IUpdatable> updatableObjects= new();
         public static List<IDrawable> drawableObjects = new();
 
         private Vector2u mapSize;
 
         private Game.Agario game;
+
+        private InputHandler input;
 
         public GameLoop()
         {
@@ -31,6 +32,8 @@ namespace Agario.Engine
             mapSize = new Vector2u(800, 800);
 
             scene = new RenderWindow(new VideoMode(mapSize.X, mapSize.Y), "Game window");
+
+            input = new InputHandler(scene);
 
             game = new Game.Agario(foodVolume, scene);
         }
@@ -78,10 +81,7 @@ namespace Agario.Engine
         }
         private void CheckInput()
         {
-            foreach (IInput inputable in inputableObjects)
-            {
-                inputable.GetInput();
-            }
+            input.CheckInput();
         }
     }
 }

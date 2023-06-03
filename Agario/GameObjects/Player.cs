@@ -6,20 +6,19 @@ using Agario.Engine.Interfaces;
 
 namespace Agario.GameObjects
 {
-    class Player : GameObject, IInput, IUpdatable, IDrawable
+    class Player : GameObject, IUpdatable, IDrawable
     {
         public float size = 30;
-
-        private CircleShape shape;
-
         private float speed;
-
-        private InputHandler input;
+        private float time;
 
         public bool IsAI;
 
+        private CircleShape shape;
+
         private Vector2f target;
-        Random random;
+
+        private Random random;
 
         public Player(float _speed, RenderWindow scene, bool _IsAI) : base(scene)
         {
@@ -46,37 +45,31 @@ namespace Agario.GameObjects
 
             Mesh = shape;
 
-            input = new InputHandler(scene);
-
             Position = position;
 
             target = Position;
+
+            InputHandler.MovePlayer += MoveToMouse;
         }
-        public void GetInput()
+        public void Update(float _time)
         {
-            if (!IsAI)
-            {
-                target = input.HandleMousePosition();
-            }
+            time = _time;
+            Move();
         }
-        public void Update(float time)
-        {
-            Move(time);
-        }
-        private void Move(float time)
+        private void Move()
         {
             if (IsAI)
             {
-                MoveToRandomPoint(time);
-
-            }
-            else
-            {
-                MoveToMouse(time);
+                MoveToRandomPoint();
             }
         }
-        private void MoveToMouse(float time)
+        private void MoveToMouse(Vector2f lastMousePos)
         {
+            if (!IsAI)
+            {
+                target = lastMousePos;
+            }
+
             Velocity = new Vector2f(target.X - Position.X, target.Y - Position.Y);
 
             float distance = (float)Math.Sqrt(Velocity.X * Velocity.X + Velocity.Y * Velocity.Y);
@@ -90,7 +83,7 @@ namespace Agario.GameObjects
                 Position += Velocity * playerSpeed * time;
             }
         }
-        private void MoveToRandomPoint(float time)
+        private void MoveToRandomPoint()
         {
             if (target == Position)
             {

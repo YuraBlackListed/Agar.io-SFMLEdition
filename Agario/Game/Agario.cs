@@ -21,7 +21,6 @@ namespace Agario.Game
 
         private Player acivePlayer;
 
-        private InputHandler input;
         Random random;
 
         public Agario(int _foodVolume, RenderWindow _scene)
@@ -44,8 +43,8 @@ namespace Agario.Game
 
                 playersList.Add(_player);
             }
-
-            input = new InputHandler(scene);
+            InputHandler.SwapPlayersAction += SwapPlayerControll;
+            InputHandler.GrowPlayersAction += GrowPlayer;
         }
         public void Update(float time)
         {
@@ -56,14 +55,6 @@ namespace Agario.Game
                 CheckForFoodCollissions(playerID);
             }
             CheckForFoodCollissions(0);
-            if (input.KeyPressed(Keyboard.Key.F))
-            {
-                SwapPlayerControll();
-            }
-            if(input.KeyPressed(Keyboard.Key.G))
-            {
-                acivePlayer.Grow(0.3f);
-            }
         }
         private void GenerateFood()
         {
@@ -111,6 +102,10 @@ namespace Agario.Game
             randomPlayer.IsAI = false;
 
             acivePlayer = randomPlayer;
+        }
+        private void GrowPlayer()
+        {
+            acivePlayer.Grow(0.3f);
         }
     }
 }
