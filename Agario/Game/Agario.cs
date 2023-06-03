@@ -1,7 +1,4 @@
 ﻿using SFML.Graphics;
-using SFML.Window;
-using SFML.System;
-using Agario.GameObjects;
 using Agario.Engine;
 using Agario.Engine.Interfaces;
 using Agario.Engine.ExtensionMethods.GameObjectExtentionMethods;
@@ -16,12 +13,12 @@ namespace Agario.Game
 
         private int foodVolume;
 
-        public static List<Food> foodList = new();
-        public static List<Player> playersList = new();
+        public static List<GameObjects.Food> foodList = new();
+        public static List<GameObjects.Player> playersList = new();
 
-        private Player acivePlayer;
+        private GameObjects.Player acivePlayer;
 
-        Random random;
+        private Random random;
 
         public Agario(int _foodVolume, RenderWindow _scene)
         {
@@ -33,13 +30,12 @@ namespace Agario.Game
         }
         private void Start()
         {
-
-            acivePlayer = new Player(100, scene, false);
+            acivePlayer = new GameObjects.Player(100, scene, false);
             playersList.Add(acivePlayer);
 
             for (int i = 0; i < 6; i++)
             {
-                Player _player = new Player(100, scene, true);
+                GameObjects.Player _player = new GameObjects.Player(100, scene, true);
 
                 playersList.Add(_player);
             }
@@ -60,7 +56,7 @@ namespace Agario.Game
         {
             if(foodList.Count < foodVolume)
             {
-                Food food = new Food(scene);
+                GameObjects.Food food = new GameObjects.Food(scene);
 
                 foodList.Add(food);
             }
@@ -85,8 +81,8 @@ namespace Agario.Game
             {
                 if(playerID != player2ID)
                 {
-                    Player atacker = playersList[playerID];
-                    Player defender = playersList[player2ID];
+                    GameObjects.Player atacker = playersList[playerID];
+                    GameObjects.Player defender = playersList[player2ID];
                     if (atacker.CollidesWith(defender))
                     {
                         atacker.HandleCollision(defender);
@@ -98,7 +94,7 @@ namespace Agario.Game
         {
             acivePlayer.IsAI = true;
 
-            Player randomPlayer = playersList[random.Next(0, playersList.Count - 1)];
+            GameObjects.Player randomPlayer = playersList[random.Next(0, playersList.Count - 1)];
             randomPlayer.IsAI = false;
 
             acivePlayer = randomPlayer;

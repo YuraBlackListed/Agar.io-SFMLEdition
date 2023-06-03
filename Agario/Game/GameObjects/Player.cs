@@ -4,7 +4,7 @@ using SFML.System;
 using Agario.Engine;
 using Agario.Engine.Interfaces;
 
-namespace Agario.GameObjects
+namespace Agario.Game.GameObjects
 {
     class Player : GameObject, IUpdatable, IDrawable
     {

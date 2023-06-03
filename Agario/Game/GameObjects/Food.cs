@@ -4,7 +4,7 @@ using System;
 using Agario.Engine;
 using Agario.Engine.Interfaces;
 
-namespace Agario.GameObjects
+namespace Agario.Game.GameObjects
 {
     class Food : GameObject, IDrawable
     {
