@@ -3,6 +3,9 @@ using SFML.Graphics;
 using SFML.Window;
 using Agario.Engine.Interfaces;
 using System.Collections.Generic;
+using System.IO;
+using System;
+using System.Xml.Serialization;
 
 namespace Agario.Engine
 {
@@ -25,7 +28,7 @@ namespace Agario.Engine
 
         private InputHandler input;
 
-        public GameLoop()
+        private GameLoop()
         {
             foodVolume = 200;
 
@@ -35,7 +38,7 @@ namespace Agario.Engine
 
             input = new InputHandler(scene);
 
-            game = new Game.Agario(foodVolume, scene);
+            
         }
 
         public void Run()
@@ -51,6 +54,8 @@ namespace Agario.Engine
         private void Start()
         {
             running = true;
+
+            game = new Game.Agario(foodVolume, scene);
 
             scene.DispatchEvents();
         }
@@ -82,6 +87,37 @@ namespace Agario.Engine
         private void CheckInput()
         {
             input.CheckInput();
+        }
+
+        public static GameLoop NewGameLoop()
+        {
+            GameLoop gameloop = new GameLoop();
+
+            gameloop.LoadInformationFromFile();
+
+            return gameloop;
+        }
+        public void LoadInformationFromFile()
+        {
+            string filePath = @"congifg.cfg";
+            using (FileStream fs = new FileStream(filePath, FileMode.Open))
+            {
+                StreamReader reader = new StreamReader(fs);
+
+                string data = reader.ReadLine();
+
+                string[] dataSplit = data.Split(':');
+
+                switch(dataSplit[0]) 
+                {
+                    case "foodVolume":
+                        if (int.TryParse(dataSplit[1], out int newFoodVolume))
+                            foodVolume = newFoodVolume;
+                        break;
+                }
+
+                Console.WriteLine("Loaded");
+            }
         }
     }
 }

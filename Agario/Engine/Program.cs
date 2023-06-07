@@ -4,7 +4,7 @@
     {
         static void Main(string[] args)
         {
-            GameLoop gameLoop = new GameLoop();
+            GameLoop gameLoop = GameLoop.NewGameLoop();
             gameLoop.Run();
         }
     }
