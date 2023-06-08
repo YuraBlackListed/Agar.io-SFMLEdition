@@ -13,6 +13,7 @@ namespace Agario.Game
         public RenderWindow scene;
 
         private int foodVolume;
+        private int playerVolume;
 
         public static List<GameObjects.Food> foodList = new();
         public static List<GameObjects.Player> playersList = new();
@@ -21,10 +22,11 @@ namespace Agario.Game
 
         private Random random;
 
-        public Agario(int _foodVolume, RenderWindow _scene)
+        public Agario(int _foodVolume, int _playerAmount, RenderWindow _scene)
         {
             scene = _scene;
             foodVolume = _foodVolume;
+            playerVolume = _playerAmount;
 
             random = new();
             Start();
@@ -34,7 +36,7 @@ namespace Agario.Game
             acivePlayer = new GameObjects.Player(100, scene, false);
             playersList.Add(acivePlayer);
 
-            for (int i = 0; i < 6; i++)
+            for (int i = 0; i < playerVolume; i++)
             {
                 GameObjects.Player _player = new GameObjects.Player(100, scene, true);
 

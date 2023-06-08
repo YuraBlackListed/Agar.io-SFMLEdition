@@ -10,6 +10,7 @@ namespace Agario.Engine
     class GameLoop
     {
         private int foodVolume;
+        private int playerAmount;
 
         public bool running = false;
 
@@ -29,14 +30,9 @@ namespace Agario.Engine
         private GameLoop()
         {
             foodVolume = 200;
+            playerAmount = 6;
 
             mapSize = new Vector2u(800, 800);
-
-            scene = new RenderWindow(new VideoMode(mapSize.X, mapSize.Y), "Game window");
-
-            input = new InputHandler(scene);
-
-            
         }
 
         public void Run()
@@ -53,7 +49,11 @@ namespace Agario.Engine
         {
             running = true;
 
-            game = new Game.Agario(foodVolume, scene);
+            scene = new RenderWindow(new VideoMode(mapSize.X, mapSize.Y), "Game window");
+
+            input = new InputHandler(scene);
+
+            game = new Game.Agario(foodVolume, playerAmount, scene);
 
             scene.DispatchEvents();
         }
@@ -102,16 +102,28 @@ namespace Agario.Engine
             {
                 StreamReader reader = new StreamReader(fs);
 
-                string data = reader.ReadLine();
-
-                string[] dataSplit = data.Split(':');
-
-                switch(dataSplit[0]) 
+                string data;
+                for (data = "1"; data != null; data = reader.ReadLine())
                 {
-                    case "foodVolume":
-                        if (int.TryParse(dataSplit[1], out int newFoodVolume))
-                            foodVolume = newFoodVolume;
-                        break;
+                    string[] dataSplit = data.Split(':');
+
+                    switch (dataSplit[0])
+                    {
+                        case "foodVolume":
+                            if (int.TryParse(dataSplit[1], out int newFoodVolume))
+                                foodVolume = newFoodVolume;
+                            break;
+                        case "mapSize":
+                            if (uint.TryParse(dataSplit[1], out uint x))
+                                mapSize.X = x;
+                            if (uint.TryParse(dataSplit[2], out uint y))
+                                mapSize.Y = y;
+                            break;
+                        case "playerAmount":
+                            if (int.TryParse(dataSplit[1], out int newPlayerAmount))
+                                playerAmount = newPlayerAmount;
+                            break;
+                    }
                 }
             }
         }
