@@ -4,8 +4,6 @@ using SFML.Window;
 using Agario.Engine.Interfaces;
 using System.Collections.Generic;
 using System.IO;
-using System;
-using System.Xml.Serialization;
 
 namespace Agario.Engine
 {
@@ -115,8 +113,6 @@ namespace Agario.Engine
                             foodVolume = newFoodVolume;
                         break;
                 }
-
-                Console.WriteLine("Loaded");
             }
         }
     }
