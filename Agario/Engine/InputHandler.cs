@@ -2,6 +2,7 @@
 using SFML.System;
 using SFML.Window;
 using System;
+using System.Collections.Generic;
 
 namespace Agario.Engine
 {
@@ -9,12 +10,9 @@ namespace Agario.Engine
     {
         private RenderWindow scene;
 
-        public static Action SwapPlayersAction;
-        public static Action GrowPlayersAction;
         public static Action<Vector2f> MovePlayer;
 
-        private Keyboard.Key swapPlayersKey = Keyboard.Key.F;
-        private Keyboard.Key growPlayersKey = Keyboard.Key.G;
+        private static List<KeyAction> keyActions = new List<KeyAction>();
 
         public InputHandler(RenderWindow _scene)
         {
@@ -23,33 +21,34 @@ namespace Agario.Engine
 
         public void CheckInput()
         {
-            HandleInput();
-        }
-        private bool KeyPressed(Keyboard.Key key)
-        {
-            if (Keyboard.IsKeyPressed(key))
-            {
-                return true;
-            }
-            return false;
-        }
-        private void HandleInput()
-        {
-            if (KeyPressed(swapPlayersKey))
-            {
-                SwapPlayersAction.Invoke();
-            }
-            if (KeyPressed(growPlayersKey))
-            {
-                GrowPlayersAction.Invoke();
-            }
             MovePlayer.Invoke(HandleMousePosition());
-        }
+
+            foreach (var action in keyActions)
+            {
+                action.CheckInput();
+            }
+        }  
         private Vector2f HandleMousePosition()
         {
             Vector2f mousePosition = (Vector2f)Mouse.GetPosition(scene);
             return mousePosition;
         }
+
+        public static void CreateAction(Keyboard.Key key, Action action)
+        {
+            keyActions.Add(new KeyAction(key, action));
+        }
+        public static void RemoveAction(Keyboard.Key bind)
+        {
+            for (int i = 0; i < keyActions.Count; i++)
+            {
+                if (keyActions[i].key == bind)
+                {
+                    keyActions.RemoveAt(i);
+                }
+            }
+        }
+
     }
 
 }

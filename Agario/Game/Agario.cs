@@ -3,6 +3,7 @@ using Agario.Engine;
 using Agario.Engine.Interfaces;
 using Agario.Engine.ExtensionMethods.GameObjectExtentionMethods;
 using System.Collections.Generic;
+using SFML.Window;
 using System;
 
 namespace Agario.Game
@@ -39,8 +40,8 @@ namespace Agario.Game
 
                 playersList.Add(_player);
             }
-            InputHandler.SwapPlayersAction += SwapPlayerControll;
-            InputHandler.GrowPlayersAction += GrowPlayer;
+            InputHandler.CreateAction(Keyboard.Key.F, SwapPlayerControll);
+            InputHandler.CreateAction(Keyboard.Key.G, GrowPlayer);
         }
         public void Update(float time)
         {
