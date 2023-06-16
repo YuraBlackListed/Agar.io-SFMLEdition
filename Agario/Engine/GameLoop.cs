@@ -3,9 +3,11 @@ using SFML.System;
 using SFML.Graphics;
 using SFML.Window;
 using Agario.Engine.Interfaces;
+using Agario.Engine.ExtensionMethods.PathExtentionMethods;
 using Agario.Engine.Input;
 using System.Collections.Generic;
 using System.IO;
+using System;
 
 namespace Agario.Engine
 {
@@ -97,7 +99,9 @@ namespace Agario.Engine
         }
         public void LoadInformationFromFile()
         {
-            string filePath = @"congifg.cfg";
+            string currentDirectory = PathExtentionMethods.GetFontDirectory();
+            string filePath = currentDirectory + "/Engine/" + @"congifg.cfg";
+            Console.WriteLine(filePath);
             if (File.Exists(filePath))
             {
                 using (FileStream fs = new FileStream(filePath, FileMode.Open))
