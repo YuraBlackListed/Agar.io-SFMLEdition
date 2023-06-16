@@ -1,9 +1,9 @@
-﻿using System;
-using SFML.Graphics;
+﻿using SFML.Graphics;
 using SFML.System;
 using Agario.Engine;
 using Agario.Engine.Interfaces;
 using Agario.Engine.Input;
+using System;
 
 namespace Agario.Game.GameObjects
 {

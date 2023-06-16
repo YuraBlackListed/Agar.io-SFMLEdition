@@ -2,9 +2,9 @@
 using SFML.Graphics;
 using SFML.Window;
 using Agario.Engine.Interfaces;
+using Agario.Engine.Input;
 using System.Collections.Generic;
 using System.IO;
-using Agario.Engine.Input;
 
 namespace Agario.Engine
 {

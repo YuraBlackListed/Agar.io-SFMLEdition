@@ -1,8 +1,8 @@
 ﻿using SFML.Graphics;
 using SFML.System;
-using System;
 using Agario.Engine;
 using Agario.Engine.Interfaces;
+using System;
 
 namespace Agario.Game.GameObjects
 {
