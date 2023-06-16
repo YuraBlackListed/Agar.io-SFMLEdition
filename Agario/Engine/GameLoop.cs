@@ -4,6 +4,7 @@ using SFML.Window;
 using Agario.Engine.Interfaces;
 using System.Collections.Generic;
 using System.IO;
+using Agario.Engine.Input;
 
 namespace Agario.Engine
 {

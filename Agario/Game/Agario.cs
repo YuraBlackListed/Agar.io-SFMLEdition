@@ -1,10 +1,10 @@
 ﻿using SFML.Graphics;
-using Agario.Engine;
 using Agario.Engine.Interfaces;
 using Agario.Engine.ExtensionMethods.GameObjectExtentionMethods;
 using System.Collections.Generic;
 using SFML.Window;
 using System;
+using Agario.Engine.Input;
 
 namespace Agario.Game
 {

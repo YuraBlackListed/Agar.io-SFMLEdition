@@ -1,7 +1,7 @@
 ﻿using SFML.Window;
 using System;
 
-namespace Agario.Engine
+namespace Agario.Engine.Input
 {
     class KeyAction
     {

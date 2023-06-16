@@ -4,7 +4,7 @@ using SFML.Window;
 using System;
 using System.Collections.Generic;
 
-namespace Agario.Engine
+namespace Agario.Engine.Input
 {
     class InputHandler
     {
@@ -27,7 +27,7 @@ namespace Agario.Engine
             {
                 action.CheckInput();
             }
-        }  
+        }
         private Vector2f HandleMousePosition()
         {
             Vector2f mousePosition = (Vector2f)Mouse.GetPosition(scene);

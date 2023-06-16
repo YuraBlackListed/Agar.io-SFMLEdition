@@ -3,6 +3,7 @@ using SFML.Graphics;
 using SFML.System;
 using Agario.Engine;
 using Agario.Engine.Interfaces;
+using Agario.Engine.Input;
 
 namespace Agario.Game.GameObjects
 {
