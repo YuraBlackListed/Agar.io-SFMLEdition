@@ -99,7 +99,7 @@ namespace Agario.Engine
         }
         public void LoadInformationFromFile()
         {
-            string currentDirectory = PathExtentionMethods.GetFontDirectory();
+            string currentDirectory = PathExtentionMethods.GetCurrentDirectory();
             string filePath = currentDirectory + "/Engine/" + @"congifg.cfg";
 
             if (File.Exists(filePath))

@@ -2,15 +2,20 @@
 using SFML.System;
 using Agario.Engine;
 using Agario.Engine.Interfaces;
-using System;
+using Agario.Engine.ExtensionMethods.AnimationExtensionMethods;
 
 namespace Agario.Game.GameObjects
 {
-    class Food : GameObject, IDrawable
+    class Food : GameObject, IUpdatable, IDrawable
     {
-		private CircleShape shape;
+		private Sprite shape;
 
 		private float radius;
+
+		private Animation animation;
+
+		private float frameTime = 0.4f;
+		private float frameTimer;
 
 		public Food(RenderWindow scene) : base(scene)
 		{
@@ -23,29 +28,48 @@ namespace Agario.Game.GameObjects
 
 		private void Initialize(Vector2f position)
 		{
-			Random random = new Random();
-			Color randomColor = new Color((byte)random.Next(0, 255), (byte)random.Next(0, 255), (byte)random.Next(0, 255));
-			radius = random.Next(3, 5);
+			radius = 3;
 
-			shape = new CircleShape(radius);
-			shape.Position = position;
-			shape.Origin = new Vector2f(radius, radius);
-			shape.FillColor = randomColor;
+            animation = new Animation("Food");
 
-			Mesh = shape;
+            shape = new Sprite(animation.frames[0]);
 
-			Position = position;
-		}
+			UpdateMesh();
+
+            Position = position;
+        }
 		public new void Destroy()
         {
 			base.Destroy();
 			Game.Agario.foodList.Remove(this);
-
 		}
+		public void Update()
+		{
+            frameTimer += Time.deltaTime;
+            if (frameTimer < frameTime)
+                return;
+            UpdateMesh();
+            frameTimer = 0;
+        }
 		public void Draw()
 		{
-			scene.Draw(Mesh);
-		}
+			if (Mesh is Shape)
+			{
+                scene.Draw((Shape)Mesh);
+            }
+            else if (Mesh is Sprite)
+            {
+                scene.Draw((Sprite)Mesh);
+            }
+        }
+		private void UpdateMesh()
+		{
+            shape = shape.TrySwapFrame(animation);
+            shape.Origin = new Vector2f(radius, radius);
+            shape.Position = Position;
 
+            Mesh = shape;
+            Mesh.Scale = new Vector2f(0.5f, 0.5f);
+        }
 	}
 }

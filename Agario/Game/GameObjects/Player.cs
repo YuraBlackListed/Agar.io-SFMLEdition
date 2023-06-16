@@ -124,7 +124,14 @@ namespace Agario.Game.GameObjects
         }
         public void Draw()
         {
-            scene.Draw(Mesh);
+            if (Mesh is Shape)
+            {
+                scene.Draw((Shape)Mesh);
+            }
+            else if (Mesh is Sprite)
+            {
+                scene.Draw((Sprite)Mesh);
+            }
         }
         public void HandleCollision(Player defender)
         {

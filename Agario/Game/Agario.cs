@@ -50,7 +50,6 @@ namespace Agario.Game
             GenerateFood();
             CheckForPlayerCollissions();
             CheckForFoodCollissions();
-            CheckForFoodCollissions();
         }
         private void GenerateFood()
         {

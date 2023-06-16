@@ -16,7 +16,7 @@ namespace Agario.Engine
 
         public Vector2f Velocity = new Vector2f(0, 0);
 
-        public Shape Mesh;
+        public Transformable Mesh;
 
         internal RenderWindow scene;
 
