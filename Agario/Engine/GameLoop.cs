@@ -13,8 +13,6 @@ namespace Agario.Engine
         private int foodVolume;
         private int playerAmount;
 
-        public bool running = false;
-
         private RenderWindow scene;
 
         private Clock clock = new Clock();
@@ -39,7 +37,7 @@ namespace Agario.Engine
         public void Run()
         {
             Start();
-            while (running)
+            while (scene.IsOpen)
             {
                 Render();
                 CheckInput();
@@ -48,9 +46,8 @@ namespace Agario.Engine
         }
         private void Start()
         {
-            running = true;
-
             scene = new RenderWindow(new VideoMode(mapSize.X, mapSize.Y), "Game window");
+            scene.Closed += (sender, e) => scene.Close();
 
             input = new InputHandler(scene);
 
