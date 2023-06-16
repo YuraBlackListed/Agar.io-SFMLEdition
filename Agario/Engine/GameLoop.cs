@@ -101,7 +101,7 @@ namespace Agario.Engine
         {
             string currentDirectory = PathExtentionMethods.GetFontDirectory();
             string filePath = currentDirectory + "/Engine/" + @"congifg.cfg";
-            Console.WriteLine(filePath);
+
             if (File.Exists(filePath))
             {
                 using (FileStream fs = new FileStream(filePath, FileMode.Open))
