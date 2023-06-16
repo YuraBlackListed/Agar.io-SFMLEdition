@@ -52,9 +52,9 @@ namespace Agario.Game.GameObjects
 
             InputHandler.MovePlayer += Move;
         }
-        public void Update(float _time)
+        public void Update()
         {
-            time = _time;
+            time = Time.deltaTime;
         }
         private void Move(Vector2f lastMousePos)
         {

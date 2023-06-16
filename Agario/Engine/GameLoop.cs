@@ -1,4 +1,5 @@
-﻿using SFML.System;
+﻿global using Time = Agario.Engine.Time;
+using SFML.System;
 using SFML.Graphics;
 using SFML.Window;
 using Agario.Engine.Interfaces;
@@ -54,18 +55,19 @@ namespace Agario.Engine
             game = new Game.Agario(foodVolume, playerAmount, scene);
 
             scene.DispatchEvents();
+
+            Time.Start();
         }
         private void Update()
         {
-            Time deltaTime = clock.Restart();
-            float seconds = deltaTime.AsSeconds();
+            Time.Update();
 
             foreach (IUpdatable updatable in updatableObjects)
             {
-                updatable.Update(seconds);
+                updatable.Update();
             }
 
-            game.Update(seconds);
+            game.Update();
 
             scene.DispatchEvents();
         }
@@ -96,31 +98,34 @@ namespace Agario.Engine
         public void LoadInformationFromFile()
         {
             string filePath = @"congifg.cfg";
-            using (FileStream fs = new FileStream(filePath, FileMode.Open))
+            if (File.Exists(filePath))
             {
-                StreamReader reader = new StreamReader(fs);
-
-                string data;
-                for (data = "1"; data != null; data = reader.ReadLine())
+                using (FileStream fs = new FileStream(filePath, FileMode.Open))
                 {
-                    string[] dataSplit = data.Split(':');
+                    StreamReader reader = new StreamReader(fs);
 
-                    switch (dataSplit[0])
+                    string data;
+                    for (data = "1"; data != null; data = reader.ReadLine())
                     {
-                        case "foodVolume":
-                            if (int.TryParse(dataSplit[1], out int newFoodVolume))
-                                foodVolume = newFoodVolume;
-                            break;
-                        case "mapSize":
-                            if (uint.TryParse(dataSplit[1], out uint x))
-                                mapSize.X = x;
-                            if (uint.TryParse(dataSplit[2], out uint y))
-                                mapSize.Y = y;
-                            break;
-                        case "playerAmount":
-                            if (int.TryParse(dataSplit[1], out int newPlayerAmount))
-                                playerAmount = newPlayerAmount;
-                            break;
+                        string[] dataSplit = data.Split(':');
+
+                        switch (dataSplit[0])
+                        {
+                            case "foodVolume":
+                                if (int.TryParse(dataSplit[1], out int newFoodVolume))
+                                    foodVolume = newFoodVolume;
+                                break;
+                            case "mapSize":
+                                if (uint.TryParse(dataSplit[1], out uint x))
+                                    mapSize.X = x;
+                                if (uint.TryParse(dataSplit[2], out uint y))
+                                    mapSize.Y = y;
+                                break;
+                            case "playerAmount":
+                                if (int.TryParse(dataSplit[1], out int newPlayerAmount))
+                                    playerAmount = newPlayerAmount;
+                                break;
+                        }
                     }
                 }
             }

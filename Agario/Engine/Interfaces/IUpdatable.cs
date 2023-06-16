@@ -2,6 +2,6 @@
 {
     public interface IUpdatable
     {
-        public void Update(float time);
+        public void Update();
     }
 }

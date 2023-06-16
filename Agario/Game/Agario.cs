@@ -45,7 +45,7 @@ namespace Agario.Game
             InputHandler.CreateAction(Keyboard.Key.F, SwapPlayerControll);
             InputHandler.CreateAction(Keyboard.Key.G, GrowPlayer);
         }
-        public void Update(float time)
+        public void Update()
         {
             GenerateFood();
             CheckForPlayerCollissions();
