@@ -1,7 +1,6 @@
 ﻿using SFML.Graphics;
 using Agario.Engine.ExtensionMethods.PathExtentionMethods;
 using System.IO;
-using System;
 using System.Collections.Generic;
 
 namespace Agario.Engine
