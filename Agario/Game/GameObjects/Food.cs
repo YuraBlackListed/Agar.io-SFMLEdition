@@ -34,7 +34,7 @@ namespace Agario.Game.GameObjects
 
             shape = new Sprite(animation.frames[0]);
 
-			UpdateMesh();
+			UpdateMesh(0.5f);
 
             Position = position;
         }
@@ -48,7 +48,7 @@ namespace Agario.Game.GameObjects
             frameTimer += Time.deltaTime;
             if (frameTimer < frameTime)
                 return;
-            UpdateMesh();
+            UpdateMesh(0.5f);
             frameTimer = 0;
         }
 		public void Draw()
@@ -62,14 +62,14 @@ namespace Agario.Game.GameObjects
                 scene.Draw((Sprite)Mesh);
             }
         }
-		private void UpdateMesh()
+		private void UpdateMesh(float scale)
 		{
-            shape = shape.TrySwapFrame(animation);
+            shape = shape.SwapFrame(animation);
             shape.Origin = new Vector2f(radius, radius);
             shape.Position = Position;
 
             Mesh = shape;
-            Mesh.Scale = new Vector2f(0.5f, 0.5f);
+            Mesh.Scale = new Vector2f(scale, scale);
         }
 	}
 }
