@@ -72,6 +72,7 @@ namespace Agario.Game
                         if (atacker.CollidesWith(foodList[foodID]))
                         {
                             atacker.Grow(0.5f);
+                            AudioSystem.PlaySoundOnce("EatFood");
                             foodList[foodID].Destroy();
                         }
                     }
@@ -108,6 +109,7 @@ namespace Agario.Game
         private void GrowPlayer()
         {
             acivePlayer.Grow(0.3f);
+            
         }
     }
 }

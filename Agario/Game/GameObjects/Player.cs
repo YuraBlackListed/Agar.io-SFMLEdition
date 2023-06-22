@@ -155,6 +155,7 @@ namespace Agario.Game.GameObjects
                         break;
                 }
             }
+            AudioSystem.PlaySoundOnce("EatPlayer");
         }
     }
 }

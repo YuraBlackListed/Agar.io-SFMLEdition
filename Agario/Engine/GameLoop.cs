@@ -7,7 +7,6 @@ using Agario.Engine.ExtensionMethods.PathExtentionMethods;
 using Agario.Engine.Input;
 using System.Collections.Generic;
 using System.IO;
-using System;
 
 namespace Agario.Engine
 {
@@ -18,8 +17,6 @@ namespace Agario.Engine
 
         private RenderWindow scene;
 
-        private Clock clock = new Clock();
-
         public static List<IUpdatable> updatableObjects= new();
         public static List<IDrawable> drawableObjects = new();
 
@@ -28,6 +25,7 @@ namespace Agario.Engine
         private Game.Agario game;
 
         private InputHandler input;
+        public AudioSystem audioSystem;
 
         private GameLoop()
         {
@@ -49,6 +47,7 @@ namespace Agario.Engine
         }
         private void Start()
         {
+            audioSystem = new();
             scene = new RenderWindow(new VideoMode(mapSize.X, mapSize.Y), "Game window");
             scene.Closed += (sender, e) => scene.Close();
 
