@@ -14,7 +14,7 @@ namespace Agario.Game.GameObjects
 
 		private Animation animation;
 
-		private float frameTime = 0.4f;
+		private float frameTime = 0.2f;
 		private float frameTimer;
 
 		public Food(RenderWindow scene) : base(scene)
@@ -41,7 +41,9 @@ namespace Agario.Game.GameObjects
 		public new void Destroy()
         {
 			base.Destroy();
-			Game.Agario.foodList.Remove(this);
+			animation.Destroy();
+
+            Game.Agario.foodList.Remove(this);
 		}
 		public void Update()
 		{

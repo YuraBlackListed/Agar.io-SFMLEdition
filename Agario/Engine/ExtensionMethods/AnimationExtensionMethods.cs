@@ -6,16 +6,8 @@ namespace Agario.Engine.ExtensionMethods.AnimationExtensionMethods
     {
         public static Sprite SwapFrame(this Sprite sprite, Animation animation)
         {
-            if (animation.curretFrame < animation.frames.Count - 1)
-            {
-                animation.curretFrame++;
-                return new Sprite(animation.frames[animation.curretFrame]);
-            }
-            else
-            {
-                animation.curretFrame = 0;
-                return new Sprite(animation.frames[animation.curretFrame]);
-            }
+            sprite.Texture = animation.frames[animation.curretFrame];
+            return sprite;
         }
     }
 }

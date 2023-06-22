@@ -2,10 +2,11 @@
 using Agario.Engine.ExtensionMethods.PathExtentionMethods;
 using System.IO;
 using System.Collections.Generic;
+using Agario.Engine.Interfaces;
 
 namespace Agario.Engine
 {
-    public class Animation
+    public class Animation : IUpdatable
     {
         public List<Texture> frames;
         public int curretFrame = 0;
@@ -14,6 +15,7 @@ namespace Agario.Engine
         {
             frames = new List<Texture>();
             GetTextures(keyword);
+            GameLoop.updatableObjects.Add(this);
         }
         private void GetTextures(string key)
         {
@@ -31,6 +33,20 @@ namespace Agario.Engine
                 index++;
                 filePath = folderPath + "/" + index + ".png";
             }
+        }
+        public void Update()
+        {
+            if (curretFrame < frames.Count - 1)
+            {
+                curretFrame++;
+                return;
+            }
+                
+            curretFrame = 0;
+        }
+        public void Destroy()
+        {
+            GameLoop.updatableObjects.Remove(this);
         }
     }
 }
