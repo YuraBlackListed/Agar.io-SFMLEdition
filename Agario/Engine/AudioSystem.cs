@@ -63,5 +63,13 @@ public class AudioSystem
 
         source.Play();
     }
+    public static void SetVolume(string name, int _volume)
+    {
+        instance.audioSources[name].Volume = _volume;
+    }
+    public static void SetPitch(string name, int _pitch)
+    {
+        instance.audioSources[name].Volume = _pitch;
+    }
     #endregion
 }
