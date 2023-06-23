@@ -44,6 +44,8 @@ namespace Agario.Game
             }
             InputHandler.CreateAction(Keyboard.Key.F, SwapPlayerControll);
             InputHandler.CreateAction(Keyboard.Key.G, GrowPlayer);
+
+            AudioSystem.PlaySoundLooped("Music");
         }
         public void Update()
         {
