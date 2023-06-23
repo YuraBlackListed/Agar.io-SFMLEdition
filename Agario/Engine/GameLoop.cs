@@ -74,7 +74,7 @@ namespace Agario.Engine
         }
         private void Render()
         {
-            scene.Clear(Color.Black);
+            scene.Clear(Color.White);
 
             foreach (IDrawable drawable in drawableObjects)
             {

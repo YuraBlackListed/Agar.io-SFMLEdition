@@ -36,13 +36,21 @@ namespace Agario.Game.GameObjects
 
             random = new();
 
-            Color randomColor = new Color((byte)random.Next(0, 255), (byte)random.Next(0, 255), (byte)random.Next(0, 255));
+            Color color;
+            if (IsAI)
+            {
+                color = new Color(0, 0, 0);
+            }
+            else
+            {
+                color = new Color(250, 0, 0);
+            }
 
             shape = new CircleShape();
             shape.Radius = size / 2;
             shape.Position = Position;
             shape.Origin = new Vector2f(shape.Radius, shape.Radius);
-            shape.FillColor = randomColor;
+            shape.FillColor = color;
 
             Mesh = shape;
 
