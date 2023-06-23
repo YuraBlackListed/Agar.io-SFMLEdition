@@ -22,6 +22,8 @@ namespace Agario.Game
 
         private Random random;
 
+        private int playerSpeed = 100;
+
         public Agario(int _foodVolume, int _playerAmount, RenderWindow _scene)
         {
             scene = _scene;
@@ -33,7 +35,7 @@ namespace Agario.Game
         }
         private void Start()
         {
-            acivePlayer = new GameObjects.Player(100, scene, false);
+            acivePlayer = new GameObjects.Player(playerSpeed, scene, false);
             playersList.Add(acivePlayer);
 
             for (int i = 0; i < playerVolume; i++)
@@ -49,7 +51,9 @@ namespace Agario.Game
         }
         public void Update()
         {
+            GeneratePlayers();
             GenerateFood();
+
             CheckForPlayerCollissions();
             CheckForFoodCollissions();
         }
@@ -60,6 +64,15 @@ namespace Agario.Game
                 GameObjects.Food food = new GameObjects.Food(scene);
 
                 foodList.Add(food);
+            }
+        }
+        private void GeneratePlayers()
+        {
+            if (playersList.Count <= playerVolume)
+            {
+                GameObjects.Player player = new GameObjects.Player(playerSpeed, scene, true);
+
+                playersList.Add(player);
             }
         }
         private void CheckForFoodCollissions()
