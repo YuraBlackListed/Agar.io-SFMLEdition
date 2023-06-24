@@ -145,8 +145,7 @@ namespace Agario.Game.GameObjects
         {
             if (size > defender.size)
             {
-                Grow(defender.size);
-                defender.Destroy();
+                IGotEatenBy(defender);
             }
             else if (size == defender.size)
             {
@@ -154,16 +153,25 @@ namespace Agario.Game.GameObjects
                 switch (randomPlayerID)
                 {
                     case 1:
-                        Grow(defender.size);
-                        defender.Destroy();
+                        SomebodyGotEaten(defender);
                         break;
                     case 2:
-                        defender.Grow(size);
-                        Destroy();
+                        IGotEatenBy(defender);
                         break;
                 }
             }
+        }
+        private void IGotEatenBy(Player player)
+        {
+            player.Grow(size);
+            //you can put any sound for this case
             AudioSystem.PlaySoundOnce("EatPlayer");
+            Destroy();
+        }
+        private void SomebodyGotEaten(Player player)
+        {
+            AudioSystem.PlaySoundOnce("EatPlayer");
+            player.Destroy();
         }
     }
 }
